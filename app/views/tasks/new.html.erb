@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <p>Добавление новой задачи.</p>
+      <%= simple_form_for [@user, @task] do |f| %>
+        <%= f.input :summary, placeholder: "Описание задачи", label: false, input_html: { autofocus: true } %>
+        <%= f.submit "Создать", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

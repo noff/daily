@@ -27,7 +27,17 @@
       <td><%= day.date.strftime("%d.%m") %></td>
       <% User.order(:id).each do |user| %>
         <td>
-
+          <% day.tasks.where(user_id: user.id).order(:summary).each do |task| %>
+            <i class="bi bi-check-square"></i>
+            <%= link_to task.summary, edit_user_task_path(user, task), class: "text-decoration-none text-black" %>
+          <% end %>
+          <% if day.date == Date.current %>
+            <div>
+              <%= link_to new_user_task_path(user) do %>
+                <i class="bi bi-plus-square-fill"></i>
+              <% end %>
+            </div>
+          <% end %>
         </td>
       <% end %>
       <td></td>
