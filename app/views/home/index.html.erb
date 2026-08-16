@@ -24,7 +24,7 @@
   <tbody class="table-group-divider">
     <% Day.order(date: :desc).each do |day| %>
     <tr>
-      <td><%= day.date.strftime("%d.%m") %></td>
+      <td class="<%= health_color(day) %>"><%= day.date.strftime("%d.%m") %></td>
       <% User.order(:id).each do |user| %>
         <td>
           <% day.tasks.where(user_id: user.id).order(:summary).each do |task| %>
@@ -46,13 +46,22 @@
                   <i class="bi bi-check-square text-secondary"></i>
                 <% end %>
               <% end %>
-              <%= link_to task.summary, edit_user_task_path(user, task), class: "text-decoration-none text-black" %>
+              <% if task_change_allowed?(day) %>
+                <%= link_to task.summary, edit_user_task_path(user, task), class: "text-decoration-none text-black" %>
+              <% else %>
+                <%= task.summary %>
+              <% end %>
+              <% if !task.completed? && @day_previous.present? && @day_previous.id == day.id %>
+                <%= link_to extend_user_task_path(user, task), class: "text-decoration-none", data: { turbo_method: :patch } do %>
+                  <i class="bi bi-arrow-up-square-fill text-danger"></i>
+                <% end %>
+              <% end %>
             </div>
           <% end %>
           <% if day.date == Date.current %>
             <div>
               <%= link_to new_user_task_path(user) do %>
-                <i class="bi bi-plus-square-fill"></i>
+                <i class="bi bi-plus-square text-black"></i>
               <% end %>
             </div>
           <% end %>

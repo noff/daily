@@ -42,6 +42,21 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
+  def extend
+    if @task.day.date != Date.current
+      @day_previous = Day.order(date: :desc).second
+      if @day_previous.present?
+        if @task.day_id === @day_previous.id
+          @day_current = Day.find_or_create_by(date: Date.today)
+          unless @day_current.tasks.where(user_id: @task.user_id).where(summary: @task.summary).exists?
+            Task.create user_id: @task.user_id, summary: @task.summary, day_id: @day_current.id
+          end
+        end
+      end
+    end
+    redirect_to root_path
+  end
+
   private
 
   def fetch_user

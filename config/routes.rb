@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       member do
         patch :complete
         patch :restore
+        patch :extend
       end
     end
   end
