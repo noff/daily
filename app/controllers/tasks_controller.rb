@@ -44,7 +44,7 @@ class TasksController < ApplicationController
 
   def extend
     if @task.day.date != Date.current
-      @day_previous = Day.order(date: :desc).second
+      @day_previous = Day.where.not(date: Date.current).order(date: :desc).first
       if @day_previous.present?
         if @task.day_id === @day_previous.id
           @day_current = Day.find_or_create_by(date: Date.today)
