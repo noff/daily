@@ -11,7 +11,12 @@ Rails.application.routes.draw do
 
   resources :days, only: [:create]
   resources :users, only: [:new, :create, :edit, :update] do
-    resources :tasks, only: [:new, :create, :edit, :update, :destroy]
+    resources :tasks, only: [:new, :create, :edit, :update, :destroy] do
+      member do
+        patch :complete
+        patch :restore
+      end
+    end
   end
 
 

@@ -7,6 +7,6 @@ class Task < ApplicationRecord
   private
 
   def set_day
-    self.day = Day.find_or_create_by(date: Date.today)
+    self.day = Day.find_or_create_by(date: Date.today) if self.day.nil?
   end
 end

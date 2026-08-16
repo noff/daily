@@ -28,8 +28,26 @@
       <% User.order(:id).each do |user| %>
         <td>
           <% day.tasks.where(user_id: user.id).order(:summary).each do |task| %>
-            <i class="bi bi-check-square"></i>
-            <%= link_to task.summary, edit_user_task_path(user, task), class: "text-decoration-none text-black" %>
+            <div>
+              <% if task.completed? %>
+                <% if task_change_allowed?(day) %>
+                  <%= link_to restore_user_task_path(user, task), class: "text-decoration-none text-black", data: { turbo_method: :patch } do %>
+                    <i class="bi bi-check-square-fill"></i>
+                  <% end %>
+                <% else %>
+                  <i class="bi bi-check-square-fill text-secondary"></i>
+                <% end %>
+              <% else %>
+                <% if task_change_allowed?(day) %>
+                  <%= link_to complete_user_task_path(user, task), class: "text-decoration-none text-black", data: { turbo_method: :patch } do %>
+                    <i class="bi bi-check-square"></i>
+                  <% end %>
+                <% else %>
+                  <i class="bi bi-check-square text-secondary"></i>
+                <% end %>
+              <% end %>
+              <%= link_to task.summary, edit_user_task_path(user, task), class: "text-decoration-none text-black" %>
+            </div>
           <% end %>
           <% if day.date == Date.current %>
             <div>

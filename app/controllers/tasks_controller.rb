@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
 
   before_action :fetch_user
+  before_action :fetch_task, except: [:new, :create]
 
   def new
     @task = Task.new
@@ -16,12 +17,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-    @task = Task.find params[:id]
-  end
+  def edit; end
 
   def update
-    @task = Task.find params[:id]
     if @task.update params.require(:task).permit(:summary)
       redirect_to root_path, notice: "Задача изменена"
     else
@@ -30,15 +28,28 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find params[:id]
     @task.destroy
     redirect_to root_path, notice: "Задача удалена"
+  end
+
+  def complete
+    @task.update completed: true
+    redirect_to root_path
+  end
+
+  def restore
+    @task.update completed: false
+    redirect_to root_path
   end
 
   private
 
   def fetch_user
     @user = User.find params[:user_id]
+  end
+
+  def fetch_task
+    @task = Task.find params[:id]
   end
 
 end
