@@ -1,0 +1,18 @@
+{
+  "id": "ws_76bf8b85",
+  "name": "daily",
+  "slug": "daily",
+  "defaults": {
+    "permissionMode": "safe",
+    "cyclablePermissionModes": [
+      "safe",
+      "allow-all"
+    ],
+    "enabledSourceSlugs": []
+  },
+  "localMcpServers": {
+    "enabled": true
+  },
+  "createdAt": 1786879660349,
+  "updatedAt": 1786879660350
+}
