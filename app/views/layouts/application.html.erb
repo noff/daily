@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru" style="overflow-x: hidden;">
   <head>
     <title><%= content_for(:title) || "Daily" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +23,28 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="w-100" style="overflow-x: hidden;">
+    <% if flash[:notice] %>
+      <div class="toast-container p-3" style="position: fixed; top: 0; right: 0; z-index: 1090;">
+        <div class="toast align-items-center text-bg-success border-0 show" role="alert" data-bs-autohide="true" data-bs-delay="5000" style="max-width: calc(100vw - 2rem); word-break: break-word;">
+          <div class="d-flex">
+            <div class="toast-body"><%= flash[:notice] %></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+    <div class="toast-container p-3" style="position: fixed; top: 0; right: 0; z-index: 1090;">
+      <div class="toast align-items-center text-bg-warning border-0 show" role="alert" data-bs-autohide="true" data-bs-delay="5000" style="max-width: calc(100vw - 2rem); word-break: break-word;">
+        <div class="d-flex">
+          <div class="toast-body"><%= flash[:alert] %></div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
     <div class="container-fluid py-5">
       <div class="row">
         <div class="col">

@@ -42,3 +42,5 @@
 .idea
 *.iml
 .claude-plugin
+
+.sessions

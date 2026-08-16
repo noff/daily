@@ -1,103 +1,37 @@
 <table class="table table-hover">
   <thead>
     <tr class="bg-light">
-      <th class="col-1">
+      <th class="col-1 bg-secondary-subtle">
         <div class="d-flex justify-content-between align-items-end">
           Дата
-          <a href="#">
-            <i class="bi bi-plus-square-fill"></i>
-          </a>
+          <% unless Day.where(date: Date.current).exists? %>
+            <%= link_to days_path, data: { turbo_method: :post } do %>
+              <i class="bi bi-plus-square-fill"></i>
+            <% end %>
+          <% end %>
         </div>
       </th>
-      <th class="col-1">Виктор</th>
-      <th class="col-1">Михаил</th>
-      <th class="col-1">Андрей</th>
-      <th class="col-1">Анна</th>
-      <th class="col-1">Максим</th>
-      <th class="col-1">Кирилл</th>
-      <th class="col-1">Никита</th>
+      <% User.order(:id).each do |user| %>
+        <th class="col-1"><%= link_to user.name, edit_user_path(user) %></th>
+      <% end %>
+      <th class="text-end col-1" >
+        <%= link_to new_user_path do %>
+          <i class="bi bi-plus-square-fill"></i>
+        <% end %>
+      </th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
+    <% Day.order(date: :desc).each do |day| %>
     <tr>
-      <td>16.08</td>
-      <td>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" />
-          <label class="form-check-label">
-            Default checkbox
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" />
-          <label class="form-check-label">
-            Default checkbox
-          </label>
-        </div>
-      </td>
-      <td>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" />
-          <label class="form-check-label">
-            Default checkbox
-          </label>
-        </div>
-      </td>
-      <td>
+      <td><%= day.date.strftime("%d.%m") %></td>
+      <% User.order(:id).each do |user| %>
+        <td>
 
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
+        </td>
+      <% end %>
+      <td></td>
     </tr>
-    <tr>
-      <td>16.08</td>
-      <td>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" />
-          <label class="form-check-label">
-            Default checkbox
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" />
-          <label class="form-check-label">
-            Default checkbox
-          </label>
-        </div>
-      </td>
-      <td>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" />
-          <label class="form-check-label">
-            Default checkbox
-          </label>
-        </div>
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-    </tr>
+    <% end %>
   </tbody>
 </table>
