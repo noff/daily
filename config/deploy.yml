@@ -48,11 +48,12 @@ asset_path: /rails/public/assets
 # Build on the server via SSH (native amd64, no QEMU emulation).
 builder:
   arch: amd64
-  remote: ssh://daily@194.104.230.90
+  remote: ssh://daily@194.104.230.90:21212
 
 # SSH user
 ssh:
   user: daily
+  port: 21212
 
 # Local Docker registry as an accessory.
 accessories:
