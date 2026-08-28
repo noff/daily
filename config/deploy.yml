@@ -54,12 +54,3 @@ builder:
 ssh:
   user: daily
   port: 21212
-
-# Local Docker registry as an accessory.
-accessories:
-  registry:
-    image: registry:2
-    host: 194.104.230.90
-    port: "127.0.0.1:5555:5000"
-    directories:
-      - /home/daily/daily/registry:/var/lib/registry
