@@ -75,6 +75,6 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
-  config.hosts = ["daily.r46.dev"]
+  # config.hosts = ["daily.r46.dev"]
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
